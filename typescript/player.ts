@@ -1,37 +1,33 @@
 import * as THREE from 'three';
 
-const material = new THREE.MeshBasicMaterial({color:0xffffff,wireframe:true});
-const geometry = new THREE.CapsuleGeometry(1.0,5.0,4,8);
-
 export class Player
 {
-    mesh: THREE.Mesh;
-    flashlight: THREE.PointLight;
-    flash_help: THREE.PointLightHelper;
+    ambient: THREE.PointLight;
+    flashlight: THREE.SpotLight;
     camera: THREE.PerspectiveCamera;
     all: THREE.Group;
+    flashlight_helper: THREE.SpotLightHelper;
 
-    step: number;
+    static step: number = 0.5;
     angle: number;
 
     constructor()
     {
-        this.angle = 0; // Math.PI/90
-        this.step = 0.1;  
-        this.mesh = new THREE.Mesh(geometry,material);
-        this.flashlight = new THREE.PointLight(0xFDF4DC,0.25,150,0.33);
-        this.flash_help = new THREE.PointLightHelper(this.flashlight,1.0,0xffffff);
+        this.angle = 0;   
+        this.ambient = new THREE.PointLight(0xFDF4DC,0.25,150,0.33);
+        this.flashlight = new THREE.SpotLight(0xFDF4DC,1.5,500,Math.PI/90,0.8,2);
+        this.flashlight_helper = new THREE.SpotLightHelper(this.flashlight,5.0);
         this.camera = new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,0.1,200);
-
-
-        this.camera.position.y += 30.0;
-        this.camera.rotation.x -= Math.PI/2;
-        this.flashlight.position.x = 1.01;
-
+        
+        this.ambient.position.y = 3.0;
+        this.flashlight.position.z = 1.0;
+        this.flashlight.rotation.x = Math.PI/2;
+        
         this.all = new THREE.Group();
-        this.all.add(this.mesh);
-        this.all.add(this.flashlight);
+        this.all.add(this.ambient);
         this.all.add(this.camera);
+        this.all.add(this.flashlight);
+        this.all.add(this.flashlight_helper);
     }
 
 

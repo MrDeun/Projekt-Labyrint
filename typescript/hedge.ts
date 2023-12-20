@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 
-const material = new THREE.MeshBasicMaterial({color:0x00ff00});
+const material = new THREE.MeshStandardMaterial({color:0x00ff00});
 
 export class Hedge
 {
@@ -8,10 +8,11 @@ export class Hedge
     all: THREE.Group;
     geometry: THREE.BoxGeometry;
 
+    static hedge_thickness: number = 3.0;
 
     constructor(length: number)
     {
-        this.geometry = new THREE.BoxGeometry(1,12.5,length,1,1,1);
+        this.geometry = new THREE.BoxGeometry(Hedge.hedge_thickness,12.5,length,1,1,1);
         this.mesh = new THREE.Mesh(this.geometry,material);
 
         this.all = new THREE.Group();

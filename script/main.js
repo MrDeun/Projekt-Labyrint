@@ -9,16 +9,18 @@ const scene = new THREE.Scene();
 const player = new Player();
 const arrayHedge = [];
 for (let index = 0; index < 4; index++) {
-    arrayHedge[index] = new Hedge(20);
+    arrayHedge[index] = new Hedge(50);
 }
-arrayHedge[0].all.position.x = -10;
-arrayHedge[1].all.position.x = 10;
-arrayHedge[2].all.position.x = -10;
-arrayHedge[3].all.position.x = 10;
-arrayHedge[0].all.position.z = 10;
-arrayHedge[1].all.position.z = -10;
-arrayHedge[2].all.position.z = -10;
-arrayHedge[3].all.position.z = 10;
+arrayHedge[0].all.position.x = 25;
+arrayHedge[1].all.position.x = 0;
+arrayHedge[2].all.position.x = -25;
+arrayHedge[3].all.position.x = 0;
+arrayHedge[0].all.position.z = 0;
+arrayHedge[1].all.position.z = 25;
+arrayHedge[2].all.position.z = 0;
+arrayHedge[3].all.position.z = -25;
+arrayHedge[1].all.rotation.y = Math.PI / 2;
+arrayHedge[3].all.rotation.y = Math.PI / 2;
 for (let element of arrayHedge) {
     scene.add(element.all);
 }
@@ -31,21 +33,22 @@ animate();
 document.addEventListener('keydown', handleKeyDown);
 function handleKeyDown(input) {
     switch (input.key) {
-        case 'w':
-            player.all.position.z += Math.cos(player.angle) * player.step;
-            player.all.position.x += Math.sin(player.angle) * player.step;
-            break;
         case 's':
-            player.all.position.z -= Math.cos(player.angle) * player.step;
-            player.all.position.x -= Math.sin(player.angle) * player.step;
+            player.all.position.z += 0.5 * Math.cos(player.angle) * Player.step;
+            player.all.position.x += 0.5 * Math.sin(player.angle) * Player.step;
             break;
-        case 'd':
-            player.angle += Math.PI / 90;
-            player.mesh.rotation.y = -player.angle;
+        case 'w':
+            player.all.position.z -= 0.5 * Math.cos(player.angle) * Player.step;
+            player.all.position.x -= 0.5 * Math.sin(player.angle) * Player.step;
             break;
         case 'a':
+            player.angle += Math.PI / 90;
+            player.all.rotation.y = player.angle;
+            break;
+        case 'd':
             player.angle -= Math.PI / 90;
-            player.mesh.rotation.y = -player.angle;
+            player.all.rotation.y = player.angle;
+            console.log("Angle: " + player.angle);
             break;
         default:
             break;
