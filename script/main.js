@@ -42,11 +42,11 @@ function handleKeyDown(input) {
             player.all.position.x -= 0.5 * Math.sin(player.angle) * Player.step;
             break;
         case 'a':
-            player.angle += Math.PI / 90;
+            player.angle += 0.5 * Math.PI / 90 * Player.step;
             player.all.rotation.y = player.angle;
             break;
         case 'd':
-            player.angle -= Math.PI / 90;
+            player.angle -= 0.5 * Math.PI / 90 * Player.step;
             player.all.rotation.y = player.angle;
             console.log("Angle: " + player.angle);
             break;
