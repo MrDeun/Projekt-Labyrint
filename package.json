@@ -1,9 +1,4 @@
 {
-  "dependencies": {
-    "three": "^0.158.0",
-    "typescript": "^5.3.3",
-    "vite": "^4.5.0"
-  },
   "devDependencies": {
     "@types/three": "^0.159.0"
   },
@@ -12,9 +7,26 @@
   "description": "my project for graphics",
   "main": "./script/main.js",
   "scripts": {
-    "start" : "npx tsc -b && npx vite",
-    "build" : "npx tsc -b"
+    "start": "npx tsc -b && npx vite",
+    "build": "npx tsc -b"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Patryk Michalak",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrDeun/Projekt-Labyrint.git"
+  },
+  "keywords": [
+    "labirynt"
+  ],
+  "bugs": {
+    "url": "https://github.com/MrDeun/Projekt-Labyrint/issues"
+  },
+  "homepage": "https://github.com/MrDeun/Projekt-Labyrint#readme",
+  "dependencies": {
+    "npm": "^10.2.5",
+    "three": "^0.159.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.10"
+  }
 }

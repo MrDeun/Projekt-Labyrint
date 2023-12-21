@@ -2,8 +2,11 @@ import * as THREE from 'three'
 
 const material = new THREE.MeshStandardMaterial({color:0x00ff00});
 
+//Size of one block: 10x10
+
 export class Hedge
 {
+    
     mesh: THREE.Mesh;
     all: THREE.Group;
     geometry: THREE.BoxGeometry;
