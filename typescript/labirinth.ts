@@ -18,8 +18,7 @@ function generateLabyrinth()
 
     let east_main_wall = new Hedge(50 *ratio);
     east_main_wall.all.position.x = 24*ratio;
-
-
+    whole_map.add()
 
 
 
