@@ -1,22 +1,33 @@
 import * as THREE from 'three';
 import { Player } from './player.js';
 import { Hedge } from './hedge.js';
+import { Ground } from './ground.js';
+import { generateLabyrinth } from './labirinth.js'
+import { Orb } from './floating_orb.js'
 
-const renderer = new THREE.WebGLRenderer({antialias:true});
+const renderer = new THREE.WebGLRenderer();
+
+const loader = new THREE.TextureLoader();
+
+const skybox = loader.load("/8k_stars.jpg");
 
 renderer.setSize(window.innerWidth,window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 const camera = new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,0.1,2000);
 const scene = new THREE.Scene();
+scene.background = skybox;
+//scene.fog = new THREE.Fog(0x111111,0.1,50);
 
 const player = new Player();
+const ground = new Ground();
+scene.add(ground.all);
 
 const arrayHedge = [];
 
 for (let index = 0; index < 4; index++) 
 {
-    arrayHedge[index] = new Hedge(50); 
+    arrayHedge[index] = new Hedge(50,false); 
 }
 
 arrayHedge[0].all.position.x = 25;
@@ -37,12 +48,15 @@ for( let element of arrayHedge)
     scene.add(element.all);
 }
 
+const objective = new Orb();
+scene.add(objective.all)
+
 scene.add(player.all);
 
 function animate()
 {
     requestAnimationFrame(animate);
-
+    objective.updatePosition();
     renderer.render(scene,player.camera);
 }
 
