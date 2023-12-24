@@ -20,33 +20,11 @@ scene.background = skybox;
 //scene.fog = new THREE.Fog(0x111111,0.1,50);
 
 const player = new Player();
+player.all.position.x = -25 * 5;
 const ground = new Ground();
 scene.add(ground.all);
 
-const arrayHedge = [];
-
-for (let index = 0; index < 4; index++) 
-{
-    arrayHedge[index] = new Hedge(50,false); 
-}
-
-arrayHedge[0].all.position.x = 25;
-arrayHedge[1].all.position.x = 0;
-arrayHedge[2].all.position.x = -25;
-arrayHedge[3].all.position.x = 0;
-
-arrayHedge[0].all.position.z = 0;
-arrayHedge[1].all.position.z = 25;
-arrayHedge[2].all.position.z = 0;
-arrayHedge[3].all.position.z = -25;
-
-arrayHedge[1].all.rotation.y = Math.PI/2;
-arrayHedge[3].all.rotation.y = Math.PI/2;
-
-for( let element of arrayHedge)
-{
-    scene.add(element.all);
-}
+scene.add(generateLabyrinth());
 
 const objective = new Orb();
 scene.add(objective.all)
@@ -83,7 +61,6 @@ function handleKeyDown(input: KeyboardEvent)
         case 'd':
             player.angle -= 0.5 * Math.PI / 90 * Player.step;
             player.all.rotation.y = player.angle;
-            console.log("Angle: " + player.angle)
             break;
         default:
             break;

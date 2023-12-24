@@ -1,5 +1,7 @@
 import * as THREE from 'three';
 
+const loader = new THREE.TextureLoader();
+
 export class Player
 {
     ambient: THREE.PointLight;

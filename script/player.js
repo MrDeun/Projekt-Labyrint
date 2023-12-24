@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+const loader = new THREE.TextureLoader();
 export class Player {
     constructor() {
         this.angle = 0;
