@@ -4,6 +4,8 @@ const geometry = new THREE.SphereGeometry(1.5, 32, 16, 0, Math.PI * 2, 0, Math.P
 export class Orb {
     constructor() {
         this.mesh = new THREE.Mesh(geometry, mirror);
+        this.light = new THREE.PointLight(0xffffff, 16.0, 20, 2.0);
+        this.mesh.add(this.light);
         this.all = new THREE.Group();
         this.all.add(this.mesh);
     }

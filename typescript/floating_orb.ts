@@ -7,11 +7,13 @@ export class Orb
 {
     mesh: THREE.Mesh;
     all: THREE.Group;
+    light: THREE.PointLight;
 
     constructor()
     {
         this.mesh = new THREE.Mesh(geometry,mirror);
-
+        this.light = new THREE.PointLight(0xffffff,16.0,20,2.0);
+        this.mesh.add(this.light);
         this.all = new THREE.Group();
         this.all.add(this.mesh);
     }
