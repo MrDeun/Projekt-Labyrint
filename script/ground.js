@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-const material = new THREE.MeshBasicMaterial({ color: 0x6f4e37 });
+const material = new THREE.MeshStandardMaterial({ color: 0x6f4e37 });
 const geometry = new THREE.PlaneGeometry(1000.0, 1000.0, 1.0, 1.0);
 export class Ground {
     constructor() {

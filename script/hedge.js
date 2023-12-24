@@ -2,7 +2,7 @@ import * as THREE from 'three';
 const loader = new THREE.TextureLoader();
 const hedge_texture = loader.load("/hedge.jpg");
 hedge_texture.repeat.set(5, 5);
-const material = new THREE.MeshBasicMaterial({ color: 0x00aa00 });
+const material = new THREE.MeshStandardMaterial({ color: 0x00aa00 });
 //Size of one block: 10x10
 export class Hedge {
     constructor(length, turned) {
