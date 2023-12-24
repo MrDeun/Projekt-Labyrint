@@ -14,6 +14,8 @@ scene.background = skybox;
 //scene.fog = new THREE.Fog(0x111111,0.1,50);
 const player = new Player();
 player.all.position.x = -25 * 5;
+player.all.rotation.y = -Math.PI / 2;
+player.angle = -Math.PI / 2;
 const ground = new Ground();
 scene.add(ground.all);
 scene.add(generateLabyrinth());

@@ -21,13 +21,15 @@ scene.background = skybox;
 
 const player = new Player();
 player.all.position.x = -25 * 5;
+player.all.rotation.y = -Math.PI/2;
+player.angle = - Math.PI/2;
 const ground = new Ground();
 scene.add(ground.all);
 
 scene.add(generateLabyrinth());
 
 const objective = new Orb();
-scene.add(objective.all)
+scene.add(objective.all);
 
 scene.add(player.all);
 
