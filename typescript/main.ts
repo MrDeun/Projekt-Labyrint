@@ -2,10 +2,9 @@ import * as THREE from 'three';
 import { Player } from './player.js';
 import { Ground } from './ground.js';
 import { generateLabyrinth } from './labirinth.js'
-import { Orb } from './floating_orb.js'
+import { Campfire } from './campfire.js'
 
 const renderer = new THREE.WebGLRenderer();
-
 const loader = new THREE.TextureLoader();
 
 const skybox = loader.load("/8k_stars.jpg");
@@ -16,26 +15,26 @@ document.body.appendChild(renderer.domElement);
 const camera = new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,0.1,2000);
 const scene = new THREE.Scene();
 scene.background = skybox;
-//scene.fog = new THREE.Fog(0x111111,0.1,50);
 
 const player = new Player();
 player.all.position.x = -25 * 5;
 player.all.rotation.y = -Math.PI/2;
+
 player.angle = - Math.PI/2;
 const ground = new Ground();
 scene.add(ground.all);
 
 scene.add(generateLabyrinth());
 
-const objective = new Orb();
-scene.add(objective.all);
+const objective = new Campfire(6,8.0);
+scene.add(objective.whole);
 
 scene.add(player.all);
 
 function animate()
 {
     requestAnimationFrame(animate);
-    objective.updatePosition();
+    objective.updateLight();
     renderer.render(scene,player.camera);
 }
 

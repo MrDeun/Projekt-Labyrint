@@ -1,7 +1,23 @@
 import * as THREE from 'three';
-import { Hedge } from './hedge.js';
+import { Hedge } from '../hedge.js';
+import { Ground } from '../ground.js';
+import { Orb } from './floating_orb.js';
+import { Player } from '../player.js';
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+//document.body.appendChild(renderer.domElement);
+const loader = new THREE.TextureLoader();
+const skybox = loader.load("/8k_stars.jpg");
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 5000);
+const gridHlper = new THREE.GridHelper(1000, 100, 0x000000, 0x444444);
+scene.add(gridHlper);
+gridHlper.position.y += 0.1;
+const ground = new Ground();
+const light = new THREE.AmbientLight(0xffffff, 5.0);
+scene.add(ground.all);
+scene.background = skybox;
+const scale = 5.0;
 export function generateLabyrinth() {
-    const scale = 5.0;
     const whole_map = new THREE.Group();
     const north_main_wall = new Hedge(48 * scale, true);
     north_main_wall.all.position.z = -24 * scale;
@@ -93,3 +109,47 @@ export function generateLabyrinth() {
     whole_map.updateMatrix();
     return whole_map;
 }
+scene.add(generateLabyrinth());
+scene.rotation.x = Math.PI / 2;
+scene.position.z = -600;
+window.addEventListener('resize', onWindowResize, false);
+const objective = new Orb();
+scene.add(objective.all);
+function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+}
+window.addEventListener('keydown', handleKeyDown);
+function handleKeyDown(key) {
+    switch (key.key) {
+        case 'w':
+            scene.position.z += 1.0;
+            break;
+        case 's':
+            scene.position.z -= 1.0;
+            break;
+        case 'a':
+            scene.rotation.y -= 0.5 * Math.PI / 90 * Player.step;
+            break;
+        case 'd':
+            scene.rotation.y += 0.5 * Math.PI / 90 * Player.step;
+            break;
+        case 'r':
+            onWindowResize();
+            break;
+        case 'h':
+            console.log("Scene Positions: " + scene.position.x + " " + scene.position.y + " " + scene.position.z);
+            console.log("Scene Rotations: " + scene.rotation.x + " " + scene.rotation.y + " " + scene.rotation.z);
+            break;
+        default:
+            break;
+    }
+}
+// function animate(time: number)
+// {
+//     requestAnimationFrame(animate);
+//     objective.updatePosition();
+//     renderer.render(scene,camera);
+// }
+// animate(0);

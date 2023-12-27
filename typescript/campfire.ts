@@ -13,7 +13,6 @@ class Brick
     constructor()
     {
         this.mesh = new THREE.Mesh(Brick.brick_geometry,Brick.brick_material);
-
         this.all = new THREE.Group()
         this.all.add(this.mesh);
     }
@@ -39,7 +38,7 @@ class Log
 
 }
 
-function logLayer(height: number)
+function create_logLayer(height: number) // on what height?
 {
     let layer = new THREE.Group;
     for (let index = 0; index < 2; index++) 
@@ -59,15 +58,87 @@ function logLayer(height: number)
     return layer;
 }
 
-class LogStack
+
+function create_logStack(stack_height: number) //How high?
 {
-    all: THREE.Group;
-    constructor(height: number)
+    let all = new THREE.Group();
+    for (let index = 0; index < stack_height; index++) 
+    { 
+        let temp = create_logLayer(index);
+        temp.rotation.y += Math.PI/2 * (index % 2);
+        all.add(temp);
+    }
+    return all;
+}
+
+function create_brickCircle(radius: number)
+{
+    let all = new THREE.Group();
+
+
+    for (let index = 0; index < 8; index++) 
     {
-        this.all = new THREE.Group()
-        for (let index = 0; index < height; index++) 
-        { 
-            
-        }
+        let temp = new Brick();
+        temp.all.position.y = -6.25 + 0.4;
+        temp.all.position.x = radius * Math.cos( index * Math.PI/4 );
+        temp.all.position.z = radius * Math.sin( index * Math.PI/4 );
+        temp.all.rotation.y -= index * Math.PI/4;
+        all.add(temp.all);
+    }
+
+    return all;
+}
+
+function create_lights(radius_in: number)
+{
+    const light_origin = new THREE.PointLight(0xe25822,4.0,64,2.0);
+    let radius = radius_in * 0.8;
+
+    let whole = new THREE.Group();
+    whole.add(light_origin);
+
+    for (let index = 0; index < 4; index++) 
+    {
+        let temp = light_origin.clone();
+        temp.position.x = radius * Math.cos(Math.PI / 2 * index);
+        temp.position.z = radius * Math.sin(Math.PI / 2 * index);
+        
+        whole.add(temp);
+    }
+    
+    return whole;
+}
+
+export class Campfire
+{
+    stack_height: number;
+    radius:number;
+
+    whole: THREE.Group;
+
+    logStack: THREE.Group;
+    brickCircle: THREE.Group;
+    lightSource: THREE.Group;
+
+    constructor(stack_height_in: number,radius_in: number)
+    {
+        this.radius = radius_in;
+        this.stack_height = stack_height_in;
+
+        this.whole = new THREE.Group()
+
+        this.logStack = create_logStack(this.stack_height);
+        this.brickCircle = create_brickCircle(this.radius);
+        this.lightSource = create_lights(this.radius);
+
+        this.whole.add(this.logStack);
+        this.whole.add(this.brickCircle);
+        this.whole.add(this.lightSource);
+    }
+
+    updateLight()
+    {
+        this.lightSource.position.y = 
+            (Log.thickness-1) * this.stack_height * Math.cos( Date.now() * Math.PI/1800 );
     }
 }
