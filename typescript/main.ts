@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import { Player } from './player.js';
-import { Hedge } from './hedge.js';
 import { Ground } from './ground.js';
 import { generateLabyrinth } from './labirinth.js'
 import { Orb } from './floating_orb.js'

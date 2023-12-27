@@ -49,7 +49,6 @@ export class Orb
             temp.position.x = Orb.radius * Math.cos( index * Math.PI/4 );
             temp.position.z = Orb.radius * Math.sin( index * Math.PI/4 );
             temp.rotation.y -= index * Math.PI/4;
-
             brickArray.push(temp);
         }
 

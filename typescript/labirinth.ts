@@ -170,7 +170,7 @@ function handleKeyDown(key: KeyboardEvent)
             scene.position.z -= 1.0;
             break;
         case 'a':
-            scene.rotation.y -= 0.5 * Math.PI/90 * Player.step;
+            scene.rotation.y -= 0.5 * Math.PI /90 * Player.step;
             break;
         case 'd':
             scene.rotation.y += 0.5 * Math.PI / 90 * Player.step;
